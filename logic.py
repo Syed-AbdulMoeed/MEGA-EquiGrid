@@ -76,14 +76,13 @@ def get_equity_analysis(city, state):
         joined = gpd.sjoin(inst_pts, grid, how="left", predicate="intersects")
         grid["inst_count"] = grid["cell_id"].map(joined.groupby("cell_id").size()).fillna(0)
         
-        # We'll use a placeholder population density or logic here
         grid["proximity_factor"] = 1 / (grid["walk_dist_m"] / 1000 + 1)
         grid["equity_score"] = grid["inst_count"] * grid["proximity_factor"]
 
         # --- 5. IMAGE GENERATION ---
         fig, ax = plt.subplots(1, 2, figsize=(12, 6))
         grid.plot(ax=ax[0], column="inst_count", cmap="YlOrRd", legend=True)
-        ax[0].set_title("Infrastructure Density")
+        ax[0].set_title("Infrastructure Density (Infra / km²)")
         grid.plot(ax=ax[1], column="equity_score", cmap="RdYlGn", legend=True)
         ax[1].set_title("Justice Equity Score")
         
