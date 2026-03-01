@@ -71,7 +71,7 @@ Since each cell is 1 km², the count directly represents density.
 
 For each grid cell:
 
--   Distance to nearest hospital is calculated\
+-   Distance to nearest hospital is calculated
 -   Euclidean distance is adjusted (×1.4) to approximate walking
     distance
 
@@ -87,7 +87,7 @@ Final score:
 
 equity_score = infrastructure_density × proximity_factor
 
-This rewards: - Higher institutional presence\
+This rewards: - Higher institutional presence
 - Shorter walking distances
 
 ------------------------------------------------------------------------
@@ -170,7 +170,7 @@ Then visit:
 
 The application generates two maps:
 
-1.  Infrastructure Density (Infra / km²)\
+1.  Infrastructure Density (Infra / km²)
 2.  Justice Equity Score
 
 The maps are rendered server-side and embedded as a Base64 image in the
@@ -192,21 +192,21 @@ frontend.
 
 ## 🔬 Design Decisions
 
--   EPSG:3857 projection for accurate meter-based calculations\
--   1 km grid resolution for interpretability\
--   Area constraint to prevent excessive computation\
--   LRU caching for optimized city lookup\
+-   EPSG:3857 projection for accurate meter-based calculations
+-   1 km grid resolution for interpretability
+-   Area constraint to prevent excessive computation
+-   LRU caching for optimized city lookup
 -   Server-side rendering for a lightweight frontend
 
 ------------------------------------------------------------------------
 
 ## 📈 Future Improvements
 
--   Population-normalized density\
--   Road-network distance instead of Euclidean\
--   Demographic overlays (income, race, etc.)\
--   Interactive map visualization (Leaflet / Mapbox)\
--   Downloadable PDF or CSV reports\
+-   Population-normalized density
+-   Road-network distance instead of Euclidean
+-   Demographic overlays (income, race, etc.)
+-   Interactive map visualization (Leaflet / Mapbox)
+-   Downloadable PDF or CSV reports
 -   Multi-country support
 
 ------------------------------------------------------------------------
@@ -220,8 +220,8 @@ institutional equity in urban environments.
 
 Rather than building a simple CRUD app, we focused on:
 
--   Geospatial computation\
--   Quantitative modeling\
+-   Geospatial computation
+-   Quantitative modeling
 -   Policy-relevant insights
 
 ------------------------------------------------------------------------
