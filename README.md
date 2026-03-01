@@ -17,14 +17,14 @@ public institutions.
 
 ## 🚀 Features
 
--   Interactive state & city selection\
--   Dynamic city loading via backend API\
--   Infrastructure extraction from OpenStreetMap\
--   1 km × 1 km spatial grid generation\
--   Institutional density calculation\
--   Proximity-based accessibility modeling\
--   Equity score computation\
--   Server-side map rendering\
+-   Interactive state & city selection
+-   Dynamic city loading via backend API
+-   Infrastructure extraction from OpenStreetMap
+-   1 km × 1 km spatial grid generation
+-   Institutional density calculation
+-   Proximity-based accessibility modeling
+-   Equity score computation
+-   Server-side map rendering
 -   Clean responsive frontend
 
 ------------------------------------------------------------------------
@@ -33,7 +33,7 @@ public institutions.
 
 ### 1️⃣ Boundary Resolution
 
-City boundaries are resolved using OpenStreetMap geocoding via OSMnx.\
+City boundaries are resolved using OpenStreetMap geocoding via OSMnx.
 The city polygon is projected into EPSG:3857 for accurate area and
 distance calculations.
 
@@ -43,10 +43,10 @@ distance calculations.
 
 The following infrastructure types are fetched dynamically:
 
--   Hospitals\
--   Police stations\
--   Courthouses\
--   Town halls\
+-   Hospitals
+-   Police stations
+-   Courthouses
+-   Town halls
 -   Parks
 
 Each feature is converted to a centroid point for spatial analysis.
@@ -96,14 +96,14 @@ This rewards: - Higher institutional presence\
 
 ### Backend
 
--   Flask\
--   OSMnx\
--   GeoPandas\
--   NumPy\
--   SciPy\
--   Shapely\
--   Matplotlib\
--   us (state metadata)\
+-   Flask
+-   OSMnx
+-   GeoPandas
+-   NumPy
+-   SciPy
+-   Shapely
+-   Matplotlib
+-   us (state metadata)
 -   zipcodes (city extraction)
 
 ### Data Source
@@ -112,9 +112,9 @@ This rewards: - Higher institutional presence\
 
 ### Frontend
 
--   HTML5\
--   CSS3\
--   Vanilla JavaScript\
+-   HTML5
+-   CSS3
+-   Vanilla JavaScript
 -   Fetch API
 
 ------------------------------------------------------------------------
@@ -228,4 +228,4 @@ Rather than building a simple CRUD app, we focused on:
 
 ## 📜 License
 
-MIT License (or choose your preferred license)
+MIT License 
