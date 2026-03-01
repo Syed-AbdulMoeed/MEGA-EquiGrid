@@ -1,24 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SDG City Equity Mapper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
-    <h1>Urban Equity Analyzer (SDG 11 & 16)</h1>
-    
-    <form method="POST">
-        <input type="text" name="city" placeholder="City (e.g. Manhattan)" required>
-        <input type="text" name="state" placeholder="State (e.g. New York)" required>
-        <button type="submit">Analyze Equity</button>
-    </form>
+    <div class="bg-glow"></div>
+    <div class="container">
+        <header class="hero">
+            <p class="eyebrow">SDG 11 + SDG 16</p>
+            <h1>Urban Equity Analyzer</h1>
+            <p class="subtitle">
+                Generate a spatial justice snapshot by mapping institutional density and
+                proximity-based equity score for a U.S. city.
+            </p>
+        </header>
 
-    <hr>
+        <section class="panel">
+            <form method="POST" class="form-layout">
+                <div class="form-left">
+                    <div class="field-group">
+                        <label for="state">State</label>
+                        <select id="state" name="state" required>
+                            <option value="">Select state</option>
+                            {% for state_name, state_abbr in state_options %}
+                            <option value="{{ state_abbr }}" {% if selected_state == state_abbr %}selected{% endif %}>
+                                {{ state_name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-    {% if img_data %}
-        <h2>Results for your City</h2>
-        <img src="data:image/png;base64,{{ img_data }}" alt="Equity Analysis Map" style="width:100%; max-width:1000px;">
-    {% else %}
-        <p>Enter a city to generate the spatial justice report.</p>
-    {% endif %}
+                    <div class="field-group">
+                        <label for="city">City</label>
+                        <select id="city" name="city" data-selected="{{ selected_city }}" required>
+                            <option value="">
+                                {% if selected_state %}Loading cities...{% else %}Select state first{% endif %}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-right">
+                    <label class="analyze-label">Analyze</label>
+                    <button type="submit">Analyze Equity</button>
+                </div>
+            </form>
+        </section>
+
+        {% if error_msg %}
+        <section class="panel error">
+            <p>{{ error_msg }}</p>
+        </section>
+        {% endif %}
+
+        {% if img_data %}
+        <section class="panel result">
+            <h2>Analysis Output</h2>
+            <img
+                src="data:image/png;base64,{{ img_data }}"
+                alt="Urban equity analysis map output"
+            />
+        </section>
+        {% else %}
+        <section class="panel hint">
+            <p>Enter a city and state to generate the spatial justice report.</p>
+        </section>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

@@ -1,0 +1,9 @@
+flask
+geopandas
+matplotlib
+numpy
+osmnx
+scipy
+shapely
+us
+zipcodes

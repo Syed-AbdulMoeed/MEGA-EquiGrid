@@ -1,6 +1,8 @@
 import osmnx as ox
 import geopandas as gpd
 import numpy as np
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from shapely.geometry import box
 from scipy.spatial.distance import cdist
@@ -10,12 +12,40 @@ import base64
 # Set OSMnx settings
 ox.settings.use_cache = True
 
-def get_equity_analysis(place_name):
+MAX_CITY_AREA_KM2 = 5000
+
+
+def _resolve_place_boundary(city, state):
+    queries = [
+        {"city": city, "state": state, "country": "USA"},
+        {"town": city, "state": state, "country": "USA"},
+        {"village": city, "state": state, "country": "USA"},
+        f"{city}, {state}, USA",
+    ]
+
+    last_error = None
+    for query in queries:
+        try:
+            gdf = ox.geocode_to_gdf(query)
+            if not gdf.empty:
+                return gdf.geometry.iloc[0]
+        except Exception as e:
+            last_error = e
+
+    raise ValueError(f"Could not resolve place boundary for {city}, {state}. {last_error}")
+
+
+def get_equity_analysis(city, state):
     try:
         # --- 1. DATA FETCHING ---
-        city_gdf = ox.geocode_to_gdf(place_name)
-        poly_4326 = city_gdf.geometry.iloc[0]
+        poly_4326 = _resolve_place_boundary(city, state)
         poly_3857 = gpd.GeoSeries([poly_4326], crs="EPSG:4326").to_crs(3857).iloc[0]
+        area_km2 = poly_3857.area / 1_000_000
+        if area_km2 > MAX_CITY_AREA_KM2:
+            raise ValueError(
+                f"Boundary for {city}, {state} is too large ({area_km2:.0f} km^2). "
+                "Please choose a more specific city."
+            )
 
         tags = {"amenity": ["police", "courthouse", "hospital", "townhall"], "leisure": "park"}
         pois = ox.features_from_polygon(poly_4326, tags).copy()
