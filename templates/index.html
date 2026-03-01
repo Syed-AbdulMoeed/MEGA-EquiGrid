@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SDG City Equity Mapper</title>
+</head>
+<body>
+    <h1>Urban Equity Analyzer (SDG 11 & 16)</h1>
+    
+    <form method="POST">
+        <input type="text" name="city" placeholder="City (e.g. Manhattan)" required>
+        <input type="text" name="state" placeholder="State (e.g. New York)" required>
+        <button type="submit">Analyze Equity</button>
+    </form>
+
+    <hr>
+
+    {% if img_data %}
+        <h2>Results for your City</h2>
+        <img src="data:image/png;base64,{{ img_data }}" alt="Equity Analysis Map" style="width:100%; max-width:1000px;">
+    {% else %}
+        <p>Enter a city to generate the spatial justice report.</p>
+    {% endif %}
+</body>
+</html>
